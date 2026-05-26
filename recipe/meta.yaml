@@ -20,7 +20,7 @@ outputs:
         - {{ pin_subpackage("ucx", max_pin="x.x") }}
       ignore_run_exports_from:
         - {{ compiler("cuda") }}
-        - cuda-cudart-dev         # [cuda_compiler == "cuda-nvcc"]
+        - cuda-cudart-dev
       missing_dso_whitelist:
         - "*libcuda.so*"
         - "*libcudart.so*"
@@ -39,15 +39,15 @@ outputs:
         - libgomp
       host:
         - cuda-version {{ cuda_compiler_version }}
-        - cuda-cudart-dev                                           # [cuda_compiler == "cuda-nvcc"]
-        - cuda-nvml-dev                                             # [cuda_compiler == "cuda-nvcc"]
+        - cuda-cudart-dev
+        - cuda-nvml-dev
         - rdma-core
       run_constrained:
-        - {{ pin_compatible("cuda-version", min_pin="x") }}         # [cuda_compiler == "cuda-nvcc"]
+        - {{ pin_compatible("cuda-version", min_pin="x") }}
         # The actual version constraint comes from cuda-version, so below we explicit list
         # them only to codify that these are expected (but optional) dependencies when CUDA
         # is in use.
-        - cuda-cudart                                               # [cuda_compiler == "cuda-nvcc"]
+        - cuda-cudart
 
     script: install_ucx.sh
     test:
